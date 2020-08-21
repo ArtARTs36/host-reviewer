@@ -63,4 +63,20 @@ class HostController extends Controller
             'result' => $this->service->pull($host) ? 'Хост обновлен' : 'Хост НЕ обновлен',
         ]);
     }
+
+    /**
+     * @param int $host
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     * @throws \Exception
+     */
+    public function destroy(int $host)
+    {
+        $host = $this->service->find($host);
+
+        $this->service->delete($host);
+
+        return response([
+            'result' => 'Хост удален',
+        ]);
+    }
 }

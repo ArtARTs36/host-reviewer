@@ -14,7 +14,10 @@
             <td>{{ $host->domain }}</td>
             <td>{{ $host->project->name }}</td>
             <td>{{ $host->git_branch }}</td>
-            <td><a href="/hosts/{{ $host->id }}/pull">pull</a></td>
+            <td>
+                <a href="/hosts/{{ $host->id }}/pull">pull</a>
+                <a href="/hosts/{{ $host->id }}/destroy">delete</a>
+            </td>
         </tr>
     @endforeach
 </table>

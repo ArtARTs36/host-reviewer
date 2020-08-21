@@ -33,4 +33,19 @@ class HostRepository extends Repository
             ->with(Host::RELATION_IPS)
             ->get();
     }
+
+    /**
+     * @param int $id
+     * @param \Closure $or
+     * @return Host
+     */
+    public function findOr(int $id, \Closure $or): Host
+    {
+        $host = $this->newQuery()->find($id);
+        if (empty($host)) {
+            $or();
+        }
+
+        return $host;
+    }
 }
