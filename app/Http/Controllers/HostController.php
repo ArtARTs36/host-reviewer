@@ -8,7 +8,9 @@ use App\Models\HostType;
 use App\Models\Project;
 use App\Repository\HostRepository;
 use App\Service\HostService;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Laravel\Lumen\Http\ResponseFactory;
 
 class HostController extends Controller
 {
@@ -61,14 +63,14 @@ class HostController extends Controller
     {
         $host = Host::query()->find($host);
 
-        return response([
-            'result' => $this->service->pull($host) ? 'Хост обновлен' : 'Хост НЕ обновлен',
-        ]);
+        return $this->service->pull($host) ?
+            $this->success('Хост успешно обновлен') :
+            $this->danger('Не удалось обновить хост');
     }
 
     /**
      * @param int $host
-     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     * @return View
      * @throws \Exception
      */
     public function destroy(int $host)
@@ -77,8 +79,6 @@ class HostController extends Controller
 
         $this->service->delete($host);
 
-        return response([
-            'result' => 'Хост удален',
-        ]);
+        return $this->success('Хост удален');
     }
 }
