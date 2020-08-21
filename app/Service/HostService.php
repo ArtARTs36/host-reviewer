@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Models\Host;
 use App\Repository\HostRepository;
 use ArtARTs36\HostReviewerCore\Handlers\RepositoryInstaller;
+use Illuminate\Support\Collection;
 
 class HostService
 {
@@ -57,5 +58,10 @@ class HostService
         return $this->repository->findOr($id, function () {
             abort(404);
         });
+    }
+
+    public function all(): Collection
+    {
+        return $this->repository->getAllWithAllRelations();
     }
 }

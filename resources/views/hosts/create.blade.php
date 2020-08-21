@@ -28,6 +28,15 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Выберите тип</label>
+            <select name="type_id" class="form-control" id="exampleFormControlSelect1">
+                @foreach($types as $type)
+                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="form-check">
             <input type="checkbox" name="install" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Установить репозиторий</label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHost;
 use App\Models\Host;
+use App\Models\HostType;
 use App\Models\Project;
 use App\Repository\HostRepository;
 use App\Service\HostService;
@@ -24,7 +25,7 @@ class HostController extends Controller
     public function index(): View
     {
         return view('hosts.index', [
-            'hosts' => app(HostRepository::class)->getAllWithProjects(),
+            'hosts' => $this->service->all(),
         ]);
     }
 
@@ -35,7 +36,8 @@ class HostController extends Controller
     {
         return view('hosts.create', [
             'pathToHosts' => env('PATH_TO_HOSTS'),
-            'projects' => Project::query()->get(),
+            'projects' => Project::all(),
+            'types' => HostType::all(),
         ]);
     }
 

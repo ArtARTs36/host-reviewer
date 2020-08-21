@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Concerns\Entityable;
 use ArtARTs36\GitHandler\Action;
 use ArtARTs36\GitHandler\Git;
 use ArtARTs36\HostReviewerCore\Entities\RemoteGit;
@@ -20,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $access_strategy
  * @property string $path
  * @property Project $project
+ * @property int $type_id
+ * @property HostType $type
  */
 class Host extends Model
 {
@@ -30,9 +31,11 @@ class Host extends Model
     public const FIELD_ACCESS_STRATEGY = 'access_strategy';
     public const FIELD_PATH = 'path';
     public const FIELD_PROJECT_ID = 'project_id';
+    public const FIELD_TYPE_ID = 'type_id';
 
     public const RELATION_IPS = 'ips';
     public const RELATION_PROJECT = 'project';
+    public const RELATION_TYPE = 'type';
 
     protected $fillable = [
         self::FIELD_NAME,
@@ -40,7 +43,16 @@ class Host extends Model
         self::FIELD_GIT_BRANCH,
         self::FIELD_PATH,
         self::FIELD_PROJECT_ID,
+        self::FIELD_TYPE_ID,
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(HostType::class);
+    }
 
     /**
      * @return BelongsTo

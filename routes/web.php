@@ -27,6 +27,10 @@ $router->get('/hosts', 'HostController@index');
 $router->get('/hosts/{host}/pull', 'HostController@pull');
 $router->get('/hosts/{host}/destroy', 'HostController@destroy');
 
+$router->get('/hosts/types', 'HostTypeController@index');
+$router->get('/hosts/types/create', 'HostTypeController@create');
+$router->post('/hosts/types', 'HostTypeController@store');
+
 $router->get('/commands', 'CommandController@index');
 $router->get('/commands/create', 'CommandController@create');
 $router->post('/commands', 'CommandController@store');

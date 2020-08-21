@@ -20,6 +20,7 @@ class StoreHost extends FormRequest
             Host::FIELD_PROJECT_ID => 'required|string',
             Host::FIELD_GIT_BRANCH => 'required|string',
             static::FIELD_INSTALL => 'sometimes',
+            Host::FIELD_TYPE_ID => 'required|int',
         ];
     }
 }

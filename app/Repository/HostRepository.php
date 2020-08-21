@@ -30,7 +30,7 @@ class HostRepository extends Repository
     public function getAllWithAllRelations()
     {
         return $this->newQuery()
-            ->with(Host::RELATION_IPS)
+            ->with([Host::RELATION_PROJECT, Host::RELATION_TYPE])
             ->get();
     }
 
