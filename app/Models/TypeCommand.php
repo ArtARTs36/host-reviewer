@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class TypeCommand
- * @package App\Models
+ * @property int $id
+ * @property HostType $type
+ * @property Command $command
+ * @property int $event
  */
 class TypeCommand extends Model
 {
@@ -17,6 +19,8 @@ class TypeCommand extends Model
     public const FIELD_TYPE_ID = 'type_id';
     public const FIELD_COMMAND_ID = 'command_id';
     public const FIELD_EVENT = 'event';
+
+    public const RELATION_COMMAND = 'command';
 
     protected $table = 'host_type_commands';
 

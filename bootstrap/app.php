@@ -114,4 +114,8 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+//
+
+$app->singleton(\App\Service\TypeCommandCreator::class);
+
 return $app;

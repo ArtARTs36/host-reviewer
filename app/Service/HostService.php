@@ -11,9 +11,12 @@ class HostService
 {
     private $repository;
 
-    public function __construct(HostRepository $repository)
+    private $typeCommandService;
+
+    public function __construct(HostRepository $repository, TypeCommandService $typeCommandService)
     {
         $this->repository = $repository;
+        $this->typeCommandService = $typeCommandService;
     }
 
     /**
@@ -23,7 +26,9 @@ class HostService
     {
         $installer = new RepositoryInstaller($host->createGit(), $host->toEntity());
 
-        $installer->install();
+        $installer->install(
+            $this->typeCommandService->getEntitiesForInstallEvent($host)
+        );
     }
 
     /**

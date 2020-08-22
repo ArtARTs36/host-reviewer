@@ -6,6 +6,8 @@ use App\Models\Command;
 use App\Models\HostType;
 use App\Models\Project;
 use App\Models\TypeCommand;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class TypeCommandRepository
@@ -29,5 +31,20 @@ class TypeCommandRepository extends Repository
                 TypeCommand::FIELD_EVENT => $event,
                 TypeCommand::FIELD_COMMAND_ID => $command->id,
             ]);
+    }
+
+    /**
+     * @param Project|null $project
+     * @param HostType $hostType
+     * @return Collection|TypeCommand[]
+     */
+    public function getAllForInstallEvent(Project $project, HostType $hostType): Collection
+    {
+        return $this->newQuery()
+            ->with(TypeCommand::RELATION_COMMAND)
+            ->where(TypeCommand::FIELD_EVENT, TypeCommand::EVENT_INSTALL)
+            ->where(TypeCommand::FIELD_PROJECT_ID, $project->id)
+            ->where(TypeCommand::FIELD_TYPE_ID, $hostType->id)
+            ->get();
     }
 }
