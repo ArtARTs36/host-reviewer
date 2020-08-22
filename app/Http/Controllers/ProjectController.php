@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProject;
+use App\Models\Command;
+use App\Models\HostType;
 use App\Models\Project;
 use App\Repository\ProjectRepository;
 use Illuminate\Contracts\View\View;
@@ -24,7 +26,10 @@ class ProjectController extends Controller
      */
     public function create(): View
     {
-        return view('projects.create');
+        return view('projects.create', [
+            'hostTypes' => HostType::all(),
+            'commands' => Command::all(),
+        ]);
     }
 
     /**

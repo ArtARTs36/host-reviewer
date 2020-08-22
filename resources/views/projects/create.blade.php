@@ -14,6 +14,8 @@
             <input type="text" class="form-control" name="remote_git" id="host-form-create__remote_git">
         </div>
 
+        @include('projects.create_commands')
+
         <button type="submit" class="btn btn-primary">Создать</button>
     </form>
 @endsection
