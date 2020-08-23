@@ -37,9 +37,9 @@ class HostRepository extends Repository
     /**
      * @param int $id
      * @param \Closure $or
-     * @return Host
+     * @return Host|mixed
      */
-    public function findOr(int $id, \Closure $or): Host
+    public function findOr(int $id, \Closure $or)
     {
         $host = $this->newQuery()->find($id);
         if (empty($host)) {
