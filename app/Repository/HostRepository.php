@@ -43,7 +43,7 @@ class HostRepository extends Repository
     {
         $host = $this->newQuery()->find($id);
         if (empty($host)) {
-            $or();
+            return $or();
         }
 
         return $host;

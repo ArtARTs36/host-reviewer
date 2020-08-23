@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Models\Host;
 use App\Repository\HostRepository;
+use ArtARTs36\EnvEditor\Editor;
+use ArtARTs36\EnvEditor\Env;
 use ArtARTs36\HostReviewerCore\Handlers\RepositoryInstaller;
 use Illuminate\Support\Collection;
 
@@ -63,6 +65,23 @@ class HostService
         return $this->repository->findOr($id, function () {
             abort(404);
         });
+    }
+
+    /**
+     * @param Host $host
+     * @param array $variables
+     * @param Env|null $env
+     * @return bool
+     */
+    public function updateEnv(Host $host, array $variables, Env $env = null): bool
+    {
+        $env = $env ?? $host->envFile();
+
+        foreach ($variables as $key => $value) {
+            $env->set($key, $value);
+        }
+
+        return Editor::save($env);
     }
 
     public function all(): Collection

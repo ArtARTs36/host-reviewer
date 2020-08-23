@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf30e92591594547bf3f07ca5705f8f2",
+    "content-hash": "c58721ea3abc5e9ec0c10a9f66def7d4",
     "packages": [
+        {
+            "name": "artarts36/env-editor",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ArtARTs36/EnvEditor.git",
+                "reference": "f6f39ef6ef8dde984e878bca1902599d84dc3a2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ArtARTs36/EnvEditor/zipball/f6f39ef6ef8dde984e878bca1902599d84dc3a2f",
+                "reference": "f6f39ef6ef8dde984e878bca1902599d84dc3a2f",
+                "shasum": ""
+            },
+            "require": {
+                "artarts36/str": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ArtARTs36\\EnvEditor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ArtARTs36",
+                    "email": "temicska99@mail.ru"
+                }
+            ],
+            "description": "Env Editor",
+            "time": "2020-08-23T14:09:25+00:00"
+        },
         {
             "name": "artarts36/git-handler",
             "version": "0.2.2",
@@ -145,6 +185,46 @@
             ],
             "description": "OOP ShellCommand",
             "time": "2020-08-20T16:49:55+00:00"
+        },
+        {
+            "name": "artarts36/str",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ArtARTs36/str.git",
+                "reference": "047de03a2b65ba56ac4b553d6d835a1684f8409f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ArtARTs36/str/zipball/047de03a2b65ba56ac4b553d6d835a1684f8409f",
+                "reference": "047de03a2b65ba56ac4b553d6d835a1684f8409f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ArtARTs36\\Str\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ArtARTs36",
+                    "email": "temicska99@mail.ru"
+                }
+            ],
+            "description": "Str",
+            "time": "2020-08-23T13:30:47+00:00"
         },
         {
             "name": "brick/math",

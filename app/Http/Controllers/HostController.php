@@ -6,11 +6,10 @@ use App\Http\Requests\StoreHost;
 use App\Models\Host;
 use App\Models\HostType;
 use App\Models\Project;
-use App\Repository\HostRepository;
 use App\Service\HostService;
-use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Laravel\Lumen\Http\ResponseFactory;
 
 class HostController extends Controller
 {
@@ -45,7 +44,7 @@ class HostController extends Controller
 
     /**
      * @param StoreHost $request
-     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
+     * @return RedirectResponse|\Laravel\Lumen\Http\Redirector
      */
     public function store(StoreHost $request)
     {
@@ -59,7 +58,7 @@ class HostController extends Controller
         return redirect('/');
     }
 
-    public function pull(int $host)
+    public function pull(int $host): View
     {
         $host = Host::query()->find($host);
 
@@ -71,9 +70,39 @@ class HostController extends Controller
     /**
      * @param int $host
      * @return View
+     */
+    public function editEnv(int $host): View
+    {
+        /** @var Host $host */
+        $host = Host::query()->find($host);
+
+        return view('hosts.env', [
+            'host' => $host,
+            'variables' => $host->envExists() ? $host->envFile()->getVariables() : null,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $host
+     * @return RedirectResponse
+     */
+    public function updateEnv(Request $request, int $host): RedirectResponse
+    {
+        /** @var Host $host */
+        $host = Host::query()->find($host);
+
+        $this->service->updateEnv($host, $request->get('variables'));
+
+        return redirect('/hosts/');
+    }
+
+    /**
+     * @param int $host
+     * @return View
      * @throws \Exception
      */
-    public function destroy(int $host)
+    public function destroy(int $host): View
     {
         $host = $this->service->find($host);
 

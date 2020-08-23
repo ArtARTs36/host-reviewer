@@ -26,6 +26,8 @@ $router->post('/hosts', 'HostController@store');
 $router->get('/hosts', 'HostController@index');
 $router->get('/hosts/{host}/pull', 'HostController@pull');
 $router->get('/hosts/{host}/destroy', 'HostController@destroy');
+$router->get('/hosts/{host}/env', 'HostController@editEnv');
+$router->post('/hosts/{host}/env', 'HostController@updateEnv');
 
 $router->get('/hosts/types', 'HostTypeController@index');
 $router->get('/hosts/types/create', 'HostTypeController@create');

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use ArtARTs36\EnvEditor\Editor;
+use ArtARTs36\EnvEditor\Env;
 use ArtARTs36\GitHandler\Action;
 use ArtARTs36\GitHandler\Git;
 use ArtARTs36\HostReviewerCore\Entities\RemoteGit;
@@ -100,6 +102,30 @@ class Host extends Model
     public function createGit(): Git
     {
         return new Git($this->path);
+    }
+
+    /**
+     * @return Env
+     */
+    public function envFile(): Env
+    {
+        return Editor::load($this->getEnvPath());
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnvPath(): string
+    {
+        return $this->path . '/.env';
+    }
+
+    /**
+     * @return bool
+     */
+    public function envExists(): bool
+    {
+        return file_exists($this->getEnvPath());
     }
 
     /**
