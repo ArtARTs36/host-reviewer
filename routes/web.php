@@ -36,3 +36,7 @@ $router->post('/hosts/types', 'HostTypeController@store');
 $router->get('/commands', 'CommandController@index');
 $router->get('/commands/create', 'CommandController@create');
 $router->post('/commands', 'CommandController@store');
+
+$router->get('/databases/connections/', 'DbConnectionController@index');
+$router->get('/databases/connections/create', 'DbConnectionController@create');
+$router->post('/databases/connections', 'DbConnectionController@store');
