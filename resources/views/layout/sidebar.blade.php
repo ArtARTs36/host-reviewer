@@ -51,6 +51,13 @@
                         Подключения
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/databases/">
+                        <span data-feather="file"></span>
+                        Базы
+                    </a>
+                </li>
             </ul>
         </ul>
     </div>

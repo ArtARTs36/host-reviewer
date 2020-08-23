@@ -47,4 +47,20 @@ class DbConnection extends Model
     {
         return Access::make($this->login, $this->password, $this->port, $this->host);
     }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return implode(' ', [
+            "# {$this->id}",
+            "[",
+            $this->system->name,
+            $this->host,
+            $this->port,
+            $this->login,
+            "]",
+        ]);
+    }
 }

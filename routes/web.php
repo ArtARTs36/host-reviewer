@@ -37,6 +37,10 @@ $router->get('/commands', 'CommandController@index');
 $router->get('/commands/create', 'CommandController@create');
 $router->post('/commands', 'CommandController@store');
 
+$router->get('/databases/', 'DatabaseController@index');
+$router->post('/databases/', 'DatabaseController@store');
+$router->get('/databases/create', 'DatabaseController@create');
+
 $router->get('/databases/connections/', 'DbConnectionController@index');
 $router->get('/databases/connections/create', 'DbConnectionController@create');
 $router->post('/databases/connections', 'DbConnectionController@store');

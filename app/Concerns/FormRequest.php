@@ -23,4 +23,12 @@ abstract class FormRequest extends Request
     {
         return array_values($this->only(...func_get_args()));
     }
+
+    /**
+     * @return array
+     */
+    public function onlyRulesValues(): array
+    {
+        return $this->onlyValues(array_keys($this->rules()));
+    }
 }

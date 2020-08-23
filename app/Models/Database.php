@@ -15,6 +15,8 @@ class Database extends Model
     public const FIELD_NAME = 'name';
     public const FIELD_DB_CONNECTION_ID = 'db_connection_id';
 
+    public const RELATION_DB_CONNECTION = 'dbConnection';
+
     protected $fillable = [
         self::FIELD_NAME,
         self::FIELD_DB_CONNECTION_ID,

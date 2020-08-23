@@ -32,4 +32,14 @@ class DbConnectionRepository extends Repository
                 DbConnection::FIELD_PORT => $port,
             ]);
     }
+
+    /**
+     * @param int $id
+     * @return DbConnection
+     */
+    public function find(int $id)
+    {
+        return $this->newQuery()
+            ->find($id);
+    }
 }
