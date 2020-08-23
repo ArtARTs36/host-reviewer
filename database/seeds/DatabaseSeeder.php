@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(HostTypeSeeder::class);
         $this->call(DbSystemSeeder::class);
+        $this->call(CommandSeeder::class);
     }
 }
