@@ -34,6 +34,26 @@ class DbConnectionRepository extends Repository
     }
 
     /**
+     * @param int $systemId
+     * @param string $login
+     * @param string $pass
+     * @param int $port
+     * @param string $host
+     * @return DbConnection
+     */
+    public function make(int $systemId, string $login, string $pass, int $port, string $host): DbConnection
+    {
+        return $this->newQuery()
+            ->make([
+                DbConnection::FIELD_SYSTEM_ID => $systemId,
+                DbConnection::FIELD_HOST => $host,
+                DbConnection::FIELD_LOGIN => $login,
+                DbConnection::FIELD_PASSWORD => $pass,
+                DbConnection::FIELD_PORT => $port,
+            ]);
+    }
+
+    /**
      * @param int $id
      * @return DbConnection
      */

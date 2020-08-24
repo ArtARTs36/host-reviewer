@@ -6,16 +6,20 @@ use App\Http\Requests\StoreDbConnection;
 use App\Models\DbConnection;
 use App\Models\DbSystem;
 use App\Repository\DbConnectionRepository;
+use App\Service\DbConnectionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class DbConnectionController
+class DbConnectionController extends Controller
 {
     private $repository;
 
-    public function __construct(DbConnectionRepository $repository)
+    private $service;
+
+    public function __construct(DbConnectionRepository $repository, DbConnectionService $service)
     {
         $this->repository = $repository;
+        $this->service = $service;
     }
 
     public function index(): View
@@ -42,7 +46,15 @@ class DbConnectionController
             DbConnection::FIELD_HOST,
         ];
 
-        $this->repository->create(...$request->onlyValues($fields));
+        $connection = $this->repository->make(...$request->onlyValues($fields));
+
+        $error = '';
+
+        if (!$this->service->checkRealConnection($connection, $error)) {
+            return $this->danger('Не удалось создать подключение: '. $error);
+        }
+
+        $connection->save();
 
         return redirect('/databases/connections');
     }
