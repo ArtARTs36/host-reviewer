@@ -17,6 +17,7 @@
             <td>{{ $host->type->name }}</td>
             <td>{{ $host->git_branch }}</td>
             <td>
+                <a href="/hosts/{{ $host->id }}">show</a>
                 <a href="/hosts/{{ $host->id }}/env">env</a>
                 <a href="/hosts/{{ $host->id }}/pull">pull</a>
                 <a href="/hosts/{{ $host->id }}/destroy">delete</a>

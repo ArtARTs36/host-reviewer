@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExecuteRawCommand;
 use App\Http\Requests\StoreHost;
+use App\Models\Command;
 use App\Models\Host;
 use App\Models\HostType;
 use App\Models\Project;
@@ -109,5 +111,24 @@ class HostController extends Controller
         $this->service->delete($host);
 
         return $this->success('Хост удален');
+    }
+
+    public function show(int $host)
+    {
+        $host = $this->service->find($host);
+
+        return view('hosts.show', [
+            'host' => $host,
+            'commands' => Command::all(),
+        ]);
+    }
+
+    public function rawCommand(int $host, ExecuteRawCommand $request)
+    {
+        $host = $this->service->find($host);
+
+        return view('terminal', [
+            'text' => $this->service->executeRawCommand($host, $request->shell),
+        ]);
     }
 }

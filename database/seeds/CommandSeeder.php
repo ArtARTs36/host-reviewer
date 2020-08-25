@@ -19,5 +19,6 @@ class CommandSeeder extends Seeder
         //
 
         $repo->create('Установка js зависимостей', 'yarn install');
+        $repo->create('Создание .env', 'cp .env.docker.example .env');
     }
 }

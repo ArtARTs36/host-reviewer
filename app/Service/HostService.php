@@ -2,11 +2,13 @@
 
 namespace App\Service;
 
+use App\Models\Command;
 use App\Models\Host;
 use App\Repository\HostRepository;
 use ArtARTs36\EnvEditor\Editor;
 use ArtARTs36\EnvEditor\Env;
 use ArtARTs36\HostReviewerCore\Handlers\RepositoryInstaller;
+use ArtARTs36\ShellCommand\ShellCommand;
 use Illuminate\Support\Collection;
 
 class HostService
@@ -87,5 +89,18 @@ class HostService
     public function all(): Collection
     {
         return $this->repository->getAllWithAllRelations();
+    }
+
+    public function executeRawCommand(Host $host, string $command)
+    {
+        $shell = ShellCommand::getInstanceWithMoveDir($host->path, '')
+            ->addParameter($command);
+
+        return $shell->getShellResult();
+    }
+
+    public function executeCommand(Host $host, Command $command)
+    {
+        return $this->executeRawCommand($host, $command->shell);
     }
 }
