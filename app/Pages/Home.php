@@ -4,6 +4,8 @@ namespace App\Pages;
 
 use App\Models\Host;
 use App\Repository\ProjectRepository;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class Home

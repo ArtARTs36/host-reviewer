@@ -36,7 +36,7 @@ final class AuthController extends Controller
             abort(422, "User with login '{$login}' not found! ");
         }, ...$request->onlyRulesValues());
 
-        //Auth::guard('api')->login($user, true);
+        Auth::guard('web')->login($user, true);
 
         return redirect('/');
     }
