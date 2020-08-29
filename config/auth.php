@@ -11,6 +11,7 @@ return [
             'driver' => 'basic',
             'provider' => 'users',
             'redirect' => '/auth',
+            'ttl' => 3600,
         ],
     ],
 
