@@ -9,7 +9,8 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'basic',
-            'provider' => 'users'
+            'provider' => 'users',
+            'redirect' => '/auth',
         ],
     ],
 
