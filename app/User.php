@@ -12,13 +12,17 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable;
 
+    public const FIELD_LOGIN = 'login';
+    public const FIELD_PASSWORD = 'password';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        self::FIELD_LOGIN,
+        self::FIELD_PASSWORD,
     ];
 
     /**
@@ -27,6 +31,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        self::FIELD_PASSWORD,
     ];
 }

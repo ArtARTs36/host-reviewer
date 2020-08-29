@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CreateUser;
 use App\Console\Commands\HostsRefresh;
+use App\Console\Commands\KeyGenerate;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         HostsRefresh::class,
+        CreateUser::class,
+        KeyGenerate::class,
     ];
 
     /**

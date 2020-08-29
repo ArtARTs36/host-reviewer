@@ -19,8 +19,15 @@ abstract class Repository
      */
     public function __construct(string $modelClass = null)
     {
-        $this->modelClass = $modelClass ??
-            '\\App\\Models\\' .
+        $this->modelClass = $modelClass ?? $this->getModelClass();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getModelClass(): string
+    {
+        return '\\App\\Models\\' .
             str_replace('Repository', '', class_basename(static::class));
     }
 

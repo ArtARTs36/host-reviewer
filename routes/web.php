@@ -46,3 +46,6 @@ $router->get('/databases/create', 'DatabaseController@create');
 $router->get('/databases/connections/', 'DbConnectionController@index');
 $router->get('/databases/connections/create', 'DbConnectionController@create');
 $router->post('/databases/connections', 'DbConnectionController@store');
+
+$router->post('/login', 'AuthController@login');
+$router->get('/auth', 'AuthController@auth');
