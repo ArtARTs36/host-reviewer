@@ -6,6 +6,7 @@ use ArtARTs36\EnvEditor\Editor;
 use ArtARTs36\EnvEditor\Env;
 use ArtARTs36\GitHandler\Action;
 use ArtARTs36\GitHandler\Git;
+use ArtARTs36\HostReviewerCore\Entities\Domain;
 use ArtARTs36\HostReviewerCore\Entities\RemoteGit;
 use Illuminate\Database\Eloquent\Model;
 use ArtARTs36\HostReviewerCore\Entities\Host as Entity;
@@ -92,7 +93,8 @@ class Host extends Model
     {
         return new Entity(
             new RemoteGit($this->project->remote_git, $this->git_branch),
-            'all_allowed'
+            new Domain($this->domain),
+            'all_allowed',
         );
     }
 

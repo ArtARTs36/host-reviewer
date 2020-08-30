@@ -7,7 +7,9 @@ use App\Models\Host;
 use App\Repository\HostRepository;
 use ArtARTs36\EnvEditor\Editor;
 use ArtARTs36\EnvEditor\Env;
+use ArtARTs36\HostReviewerCore\Handlers\ProjectInstaller;
 use ArtARTs36\HostReviewerCore\Handlers\RepositoryInstaller;
+use ArtARTs36\HostReviewerCore\Support\Commander;
 use ArtARTs36\ShellCommand\ShellCommand;
 use Illuminate\Support\Collection;
 
@@ -28,7 +30,7 @@ class HostService
      */
     public function install(Host $host)
     {
-        $installer = new RepositoryInstaller($host->createGit(), $host->toEntity());
+        $installer = new ProjectInstaller($host->createGit(), $host->toEntity());
 
         $installer->install(
             $this->typeCommandService->getEntitiesForInstallEvent($host)
@@ -93,6 +95,11 @@ class HostService
 
     public function executeRawCommand(Host $host, string $command)
     {
+        $command = Commander::prepare(
+            new \ArtARTs36\HostReviewerCore\Entities\Command($command),
+            $host->toEntity()
+        );
+
         $shell = ShellCommand::getInstanceWithMoveDir($host->path, '')
             ->addParameter($command);
 

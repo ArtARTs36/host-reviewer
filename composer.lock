@@ -130,15 +130,16 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:ArtARTs36/HostReviewerCore.git",
-                "reference": "96625466b54b466be70ddb9ce2263d9b3970b981"
+                "reference": "66fdf2d9a796e9ae0a0f2acc2a194d2707653874"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ArtARTs36/HostReviewerCore/zipball/96625466b54b466be70ddb9ce2263d9b3970b981",
-                "reference": "96625466b54b466be70ddb9ce2263d9b3970b981",
+                "url": "https://api.github.com/repos/ArtARTs36/HostReviewerCore/zipball/66fdf2d9a796e9ae0a0f2acc2a194d2707653874",
+                "reference": "66fdf2d9a796e9ae0a0f2acc2a194d2707653874",
                 "shasum": ""
             },
             "require": {
+                "artarts36/db-creator": "^1.0",
                 "artarts36/git-handler": "^0.2.2",
                 "artarts36/shell-command": "^1.1",
                 "ext-json": "*"
@@ -181,7 +182,7 @@
                 "source": "https://github.com/ArtARTs36/HostReviewerCore/tree/dev",
                 "issues": "https://github.com/ArtARTs36/HostReviewerCore/issues"
             },
-            "time": "2020-08-20T23:13:34+00:00"
+            "time": "2020-08-30T09:29:29+00:00"
         },
         {
             "name": "artarts36/shell-command",
