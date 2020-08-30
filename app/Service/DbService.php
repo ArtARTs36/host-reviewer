@@ -24,12 +24,15 @@ class DbService
         return $this->repository->create($this->generateNewName(), $host->project->dbConnection->id);
     }
 
+    /**
+     * @return string
+     */
     public function generateNewName(): string
     {
         $last = Database::query()->latest()->first();
 
-        $id = $last ? $last->id : 1;
+        $id = $last ? $last->id + 1 : 1;
 
-        return "hrdb". $id;
+        return env('PREFIX_TO_CREATE_DB', 'hrdb'). $id;
     }
 }
