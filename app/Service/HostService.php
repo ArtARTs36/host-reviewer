@@ -61,6 +61,16 @@ class HostService
     }
 
     /**
+     * @param int $host
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteById(int $host): bool
+    {
+        return $this->delete($this->find($host));
+    }
+
+    /**
      * @param int $id
      * @return Host
      */

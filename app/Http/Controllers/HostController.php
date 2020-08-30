@@ -62,9 +62,7 @@ class HostController extends Controller
 
     public function pull(int $host): View
     {
-        $host = Host::query()->find($host);
-
-        return $this->service->pull($host) ?
+        return $this->service->pull($this->service->find($host)) ?
             $this->success('Хост успешно обновлен') :
             $this->danger('Не удалось обновить хост');
     }
@@ -75,8 +73,7 @@ class HostController extends Controller
      */
     public function editEnv(int $host): View
     {
-        /** @var Host $host */
-        $host = Host::query()->find($host);
+        $host = $this->service->find($host);
 
         return view('hosts.env', [
             'host' => $host,
@@ -106,29 +103,35 @@ class HostController extends Controller
      */
     public function destroy(int $host): View
     {
-        $host = $this->service->find($host);
-
-        $this->service->delete($host);
+        $this->service->deleteById($host);
 
         return $this->success('Хост удален');
     }
 
-    public function show(int $host)
+    /**
+     * @param int $host
+     * @return View
+     */
+    public function show(int $host): View
     {
-        $host = $this->service->find($host);
-
         return view('hosts.show', [
-            'host' => $host,
+            'host' => $this->service->find($host),
             'commands' => Command::all(),
         ]);
     }
 
-    public function rawCommand(int $host, ExecuteRawCommand $request)
+    /**
+     * @param int $host
+     * @param ExecuteRawCommand $request
+     * @return View
+     */
+    public function rawCommand(int $host, ExecuteRawCommand $request): View
     {
-        $host = $this->service->find($host);
-
         return view('terminal', [
-            'text' => $this->service->executeRawCommand($host, $request->shell),
+            'text' => $this->service->executeRawCommand(
+                $this->service->find($host),
+                $request->shell
+            ),
         ]);
     }
 }
