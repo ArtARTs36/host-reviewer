@@ -52,4 +52,11 @@ final class AuthController extends Controller
 
         return view('auth.page');
     }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+
+        return redirect('/auth');
+    }
 }

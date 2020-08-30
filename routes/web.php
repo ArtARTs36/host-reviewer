@@ -35,6 +35,8 @@ $router->group(['middleware' => 'auth:web'], function (\Laravel\Lumen\Routing\Ro
     $router->get('/databases/connections/', 'DbConnectionController@index');
     $router->get('/databases/connections/create', 'DbConnectionController@create');
     $router->post('/databases/connections', 'DbConnectionController@store');
+
+    $router->get('/logout', 'AuthController@logout');
 });
 
 $router->post('/login', 'AuthController@login');

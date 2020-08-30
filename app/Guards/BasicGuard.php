@@ -345,10 +345,11 @@ class BasicGuard implements Guard, SupportsBasicAuth
      */
     public function logout()
     {
-        $user = $this->user();
+        setcookie('PHP_AUTH_USER', '', 0);
+        setcookie('PHP_AUTH_PW', '', 0);
 
         if (isset($this->events)) {
-            $this->events->dispatch(new Events\Logout($this->name, $user));
+            $this->events->dispatch(new Events\Logout($this->name, $this->user()));
         }
 
         // Once we have fired the logout event we will clear the users out of memory
