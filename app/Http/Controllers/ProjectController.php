@@ -54,7 +54,12 @@ class ProjectController extends Controller
      */
     public function store(StoreProject $request, TypeCommandCreator $commandCreator)
     {
-        $project = Project::query()->create($request->forProject());
+        $project = Project::query()->create([
+            Project::FIELD_NAME => $request->get(Project::FIELD_NAME),
+            Project::FIELD_REMOTE_GIT => $request->get(Project::FIELD_REMOTE_GIT),
+            Project::FIELD_IS_NEED_CREATE_DB => (bool) $request->get(StoreProject::FIELD_DB_CREATE),
+            Project::FIELD_DB_CONNECTION_ID => $request->get(Project::FIELD_DB_CONNECTION_ID),
+        ]);
 
         if ($request->hasEnvKeys()) {
             $this->service->createEnvKeys($project, $request->getEnvKeys());

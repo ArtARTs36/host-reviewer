@@ -19,10 +19,11 @@ class StoreProject extends FormRequest
             Project::FIELD_REMOTE_GIT => 'required|string',
             static::FIELD_UPDATE_COMMANDS => 'sometimes|array',
             static::FIELD_INSTALL_COMMANDS => 'sometimes|array',
-            static::FIELD_DB_CREATE => 'sometimes',
+            static::FIELD_DB_CREATE => 'sometimes|bool',
             static::FIELD_ENV_KEYS => 'sometimes',
-            static::FIELD_ENV_KEYS . '.*.key' => 'required|string',
-            static::FIELD_ENV_KEYS . '.*.alias_id' => 'required|int',
+            static::FIELD_ENV_KEYS . '.*.key' => 'sometimes|string',
+            static::FIELD_ENV_KEYS . '.*.alias_id' => 'sometimes|int',
+            Project::FIELD_DB_CONNECTION_ID => 'sometimes|int',
         ];
     }
 
@@ -38,10 +39,5 @@ class StoreProject extends FormRequest
         }
 
         return $this->get(static::FIELD_ENV_KEYS);
-    }
-
-    public function forProject(): array
-    {
-        return $this->only(Project::FIELD_NAME, Project::FIELD_REMOTE_GIT);
     }
 }
