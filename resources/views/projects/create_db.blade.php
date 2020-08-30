@@ -3,7 +3,7 @@
 </div>
 
 <div class="form-check">
-    <input type="checkbox" name="install" class="form-check-input" id="exampleCheck1">
+    <input type="checkbox" name="db_create" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Создавать БД</label>
 </div>
 
@@ -17,5 +17,27 @@
         @endforeach
     </select>
 </div>
+
+<table class="table bordered">
+    <tr>
+        <td>
+            Ключ в .env
+        </td>
+        <td>
+            Обозначение
+        </td>
+    </tr>
+    @foreach($dbEnvAliases as $key => $alias)
+        <tr>
+            <td>
+                <input name="env_keys[{{ $key }}][key]" class="form-control" placeholder="Ключ" />
+            </td>
+            <td>
+                {{ $alias->title }}
+                <input name="env_keys[{{ $key }}][alias_id]" value="{{ $alias->id }}" type="hidden" />
+            </td>
+        </tr>
+    @endforeach
+</table>
 
 <br/>

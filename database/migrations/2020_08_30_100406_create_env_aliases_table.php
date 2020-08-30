@@ -19,6 +19,7 @@ class CreateEnvAliasesTable extends Migration
 
             $table->string('title', 40);
             $table->string('slug', 40);
+            $table->string('scope', 10);
         });
     }
 

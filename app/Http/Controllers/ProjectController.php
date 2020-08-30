@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProject;
 use App\Models\Command;
+use App\Models\EnvAlias;
 use App\Models\HostType;
 use App\Models\Project;
 use App\Repository\DbConnectionRepository;
 use App\Repository\ProjectRepository;
+use App\Service\ProjectService;
 use App\Service\TypeCommandCreator;
 use Illuminate\Contracts\View\View;
 
 class ProjectController extends Controller
 {
+    private $service;
+
+    public function __construct(ProjectService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @return View
      */
@@ -28,10 +37,13 @@ class ProjectController extends Controller
      */
     public function create(): View
     {
+        $envs = EnvAlias::all();
+
         return view('projects.create', [
             'hostTypes' => HostType::all(),
             'commands' => Command::all(),
             'dbConnections' => app(DbConnectionRepository::class)->getAll(),
+            'dbEnvAliases' => $envs->where(EnvAlias::FIELD_SCOPE, EnvAlias::SCOPE_DB),
         ]);
     }
 
@@ -42,7 +54,11 @@ class ProjectController extends Controller
      */
     public function store(StoreProject $request, TypeCommandCreator $commandCreator)
     {
-        $project = Project::query()->create($request->all());
+        $project = Project::query()->create($request->forProject());
+
+        if ($request->hasEnvKeys()) {
+            $this->service->createEnvKeys($project, $request->getEnvKeys());
+        }
 
         if (($commands = $request->get(StoreProject::FIELD_INSTALL_COMMANDS))) {
             $commandCreator->forInstallEvent($project, $commands);
