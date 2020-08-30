@@ -319,7 +319,7 @@ class BasicGuard implements Guard, SupportsBasicAuth
 
         $this->setUser($user);
 
-        setcookie('PHP_AUTH_USER', $user->login, $ttl = time() * $this->config('ttl', 3600));
+        setcookie('PHP_AUTH_USER', $user->login, $ttl = time() + $this->config('ttl', 3600));
         setcookie('PHP_AUTH_PW', $user->password, $ttl);
     }
 
