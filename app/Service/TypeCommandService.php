@@ -7,6 +7,7 @@ use App\Models\HostType;
 use App\Models\Project;
 use App\Models\TypeCommand;
 use App\Repository\TypeCommandRepository;
+use ArtARTs36\HostReviewerCore\Entities\Command;
 
 /**
  * Class TypeCommandService
@@ -28,7 +29,7 @@ class TypeCommandService
 
     /**
      * @param Host $host
-     * @return array
+     * @return Command[]
      */
     public function getEntitiesForInstallEvent(Host $host): array
     {

@@ -3,14 +3,12 @@
 namespace App\Service;
 
 use App\Models\Command;
-use App\Models\Database;
 use App\Models\Host;
 use App\Repository\HostRepository;
 use ArtARTs36\DbCreator\Access;
 use ArtARTs36\EnvEditor\Editor;
 use ArtARTs36\EnvEditor\Env;
 use ArtARTs36\HostReviewerCore\Handlers\ProjectInstaller;
-use ArtARTs36\HostReviewerCore\Handlers\RepositoryInstaller;
 use ArtARTs36\HostReviewerCore\Support\Commander;
 use ArtARTs36\ShellCommand\ShellCommand;
 use Illuminate\Support\Collection;
@@ -37,9 +35,17 @@ class HostService
     {
         $installer = new ProjectInstaller($host->createGit(), $host->toEntity());
 
-        $installer->install(
-            $this->typeCommandService->getEntitiesForInstallEvent($host)
-        );
+        // @todo переписать
+
+        $installer->install();
+
+        $commands = $this->typeCommandService->getEntitiesForInstallEvent($host);
+
+        foreach ($commands as $command) {
+            $this->executeRawCommand($host, $command->getShell());
+        }
+
+        //
 
         if ((bool) $host->project->is_need_create_db === true) {
             $conn = $host->project->dbConnection;
@@ -47,6 +53,10 @@ class HostService
             $db = $this->dbService->createByHost($host);
 
             $installer->installDatabase($conn->system->key, $db->name, $access);
+
+            if ($host->envExists()) {
+                EnvService::installDatabase($host, $db->name);
+            }
         }
     }
 

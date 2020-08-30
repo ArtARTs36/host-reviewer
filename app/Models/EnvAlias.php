@@ -3,18 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
  * @property string $title
  * @property string $slug
  * @property string $scope
+ * @property Collection|EnvKey[] $keys
+ * @property string $key
+ * @property string $value
  */
 class EnvAlias extends Model
 {
     public const FIELD_TITLE = 'title';
     public const FIELD_SLUG = 'slug';
     public const FIELD_SCOPE = 'scope';
+
+    public const RELATION_KEYS = 'keys';
 
     public const SCOPE_DB = 'db';
 
@@ -30,4 +37,17 @@ class EnvAlias extends Model
         self::FIELD_SLUG,
         self::FIELD_SCOPE,
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function keys(): HasMany
+    {
+        return $this->hasMany(EnvKey::class, EnvKey::FIELD_ALIAS_ID);
+    }
+
+    public function getKeyAttribute(): string
+    {
+        return $this->keys->first()->key;
+    }
 }
