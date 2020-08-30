@@ -68,19 +68,21 @@ class TypeCommandCreator
     ): Collection {
         $cmd = collect();
 
-        foreach ($commands as $hostType => $installCommand) {
-            $installCommand = (int) $installCommand;
+        foreach ($commands as $hostType => $cmds) {
+            foreach ($cmds as $installCommand) {
+                $installCommand = (int) $installCommand;
 
-            if (empty($this->hostTypes[$hostType]) || empty($this->commands[$installCommand])) {
-                continue;
+                if (empty($this->hostTypes[$hostType]) || empty($this->commands[$installCommand])) {
+                    continue;
+                }
+
+                $cmd[] = $this->repo->create(
+                    $project,
+                    $this->hostTypes[$hostType],
+                    $event,
+                    $this->commands[$installCommand]
+                );
             }
-
-            $cmd[] = $this->repo->create(
-                $project,
-                $this->hostTypes[$hostType],
-                $event,
-                $this->commands[$installCommand]
-            );
         }
 
         return $cmd;
