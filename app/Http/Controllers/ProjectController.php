@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProject;
 use App\Models\Command;
 use App\Models\HostType;
 use App\Models\Project;
+use App\Repository\DbConnectionRepository;
 use App\Repository\ProjectRepository;
 use App\Service\TypeCommandCreator;
 use Illuminate\Contracts\View\View;
@@ -30,6 +31,7 @@ class ProjectController extends Controller
         return view('projects.create', [
             'hostTypes' => HostType::all(),
             'commands' => Command::all(),
+            'dbConnections' => app(DbConnectionRepository::class)->getAll(),
         ]);
     }
 

@@ -18,8 +18,6 @@ class CreateUser extends Command
         /** @var UserRepository $repo */
         $repo = app(UserRepository::class);
 
-        dump(encrypt('kukuepta22'));
-
         $login = trim($this->ask('Login'));
         $password = trim($this->ask('Password'));
 

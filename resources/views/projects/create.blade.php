@@ -15,6 +15,7 @@
         </div>
 
         @include('projects.create_commands')
+        @include('projects.create_db')
 
         <button type="submit" class="btn btn-primary">Создать</button>
     </form>
