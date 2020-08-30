@@ -3,8 +3,10 @@
 namespace App\Service;
 
 use App\Models\Command;
+use App\Models\Database;
 use App\Models\Host;
 use App\Repository\HostRepository;
+use ArtARTs36\DbCreator\Access;
 use ArtARTs36\EnvEditor\Editor;
 use ArtARTs36\EnvEditor\Env;
 use ArtARTs36\HostReviewerCore\Handlers\ProjectInstaller;
@@ -19,10 +21,13 @@ class HostService
 
     private $typeCommandService;
 
-    public function __construct(HostRepository $repository, TypeCommandService $typeCommandService)
+    private $dbService;
+
+    public function __construct(HostRepository $repository, TypeCommandService $typeCommandService, DbService $dbService)
     {
         $this->repository = $repository;
         $this->typeCommandService = $typeCommandService;
+        $this->dbService = $dbService;
     }
 
     /**
@@ -35,6 +40,14 @@ class HostService
         $installer->install(
             $this->typeCommandService->getEntitiesForInstallEvent($host)
         );
+
+        if ((bool) $host->project->is_need_create_db === true) {
+            $conn = $host->project->dbConnection;
+            $access = Access::make($conn->login, $conn->password, $conn->port, $conn->host);
+            $db = $this->dbService->createByHost($host);
+
+            $installer->installDatabase($conn->system->key, $db->name, $access);
+        }
     }
 
     /**

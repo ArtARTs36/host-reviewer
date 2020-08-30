@@ -23,14 +23,10 @@ class DbConnectionRepository extends Repository
 
     public function create(int $systemId, string $login, string $pass, int $port, string $host): DbConnection
     {
-        return $this->newQuery()
-            ->create([
-                DbConnection::FIELD_SYSTEM_ID => $systemId,
-                DbConnection::FIELD_HOST => $host,
-                DbConnection::FIELD_LOGIN => $login,
-                DbConnection::FIELD_PASSWORD => $pass,
-                DbConnection::FIELD_PORT => $port,
-            ]);
+        $instance = $this->make(...func_get_args());
+        $instance->save();
+
+        return $instance;
     }
 
     /**

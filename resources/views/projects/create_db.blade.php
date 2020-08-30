@@ -11,7 +11,7 @@
 
 <div class="form-group">
     <label for="exampleFormControlSelect1">Выберите подключение</label>
-    <select name="system_id" class="form-control" id="exampleFormControlSelect1">
+    <select name="db_connection_id" class="form-control" id="exampleFormControlSelect1">
         @foreach($dbConnections as $connection)
             <option value="{{ $connection->id }}">{{ $connection->getName() }}</option>
         @endforeach

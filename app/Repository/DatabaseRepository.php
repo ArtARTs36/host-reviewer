@@ -15,7 +15,7 @@ class DatabaseRepository extends Repository
             ->get();
     }
 
-    public function create(string $name, int $connectionId)
+    public function create(string $name, int $connectionId): Database
     {
         return $this->newQuery()
             ->create([

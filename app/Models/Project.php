@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $remote_git
  * @property boolean $is_need_create_db
  * @property int $db_connection_id
+ * @property DbConnection $dbConnection
  */
 class Project extends Model
 {
@@ -28,11 +30,23 @@ class Project extends Model
         self::FIELD_DB_CONNECTION_ID,
     ];
 
+    protected $casts = [
+        self::FIELD_IS_NEED_CREATE_DB => 'boolean',
+    ];
+
     /**
      * @return HasMany
      */
     public function hosts(): HasMany
     {
         return $this->hasMany(Host::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function dbConnection(): BelongsTo
+    {
+        return $this->belongsTo(DbConnection::class);
     }
 }

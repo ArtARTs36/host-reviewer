@@ -19,7 +19,7 @@ class StoreProject extends FormRequest
             Project::FIELD_REMOTE_GIT => 'required|string',
             static::FIELD_UPDATE_COMMANDS => 'sometimes|array',
             static::FIELD_INSTALL_COMMANDS => 'sometimes|array',
-            static::FIELD_DB_CREATE => 'sometimes|bool',
+            static::FIELD_DB_CREATE => 'sometimes',
             static::FIELD_ENV_KEYS => 'sometimes',
             static::FIELD_ENV_KEYS . '.*.key' => 'sometimes|string',
             static::FIELD_ENV_KEYS . '.*.alias_id' => 'sometimes|int',
