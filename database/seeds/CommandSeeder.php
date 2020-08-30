@@ -14,7 +14,7 @@ class CommandSeeder extends Seeder
 
         $repo->create('Установка PHP зависимостей', 'composer install');
         $repo->create('Установка PHP зависимостей', 'composer install --no-dev');
-        $repo->create('Обновление PHP классов', 'composer dump-autoload --o');
+        $repo->create('Обновление PHP классов', 'composer dump-autoload -o');
 
         //
 
